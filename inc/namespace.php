@@ -173,7 +173,7 @@ function add_ids_to_content( $content ) {
  *                    and `offset` keys).
  */
 function get_header_tags( $content ) {
-	preg_match_all( '/<h([1-4])[^>]*>(.*)<\/h([1-4])>/', $content, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE );
+	preg_match_all( '/<h([1-4])[^>]*>(.*)<\/h([1-4])>/U', $content, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE );
 
 	if ( empty( $matches ) ) {
 		return [];
