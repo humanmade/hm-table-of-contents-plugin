@@ -10,5 +10,6 @@
 namespace HM\TOC;
 
 require __DIR__ . '/inc/namespace.php';
+require __DIR__ . '/inc/template-tags.php';
 
 bootstrap();
