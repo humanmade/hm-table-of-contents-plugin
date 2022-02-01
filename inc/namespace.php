@@ -93,7 +93,7 @@ function get_header_hierarchy( WP_Post $post ) {
 	// Roll up.
 	$roll_up( 0 );
 
-	// Remove empty top-levels iff they're the only item.
+	// Remove empty top-levels if they're the only item.
 	while ( count( $root->items ) === 1 && empty( $root->items[0]->href ) ) {
 		$root->items = $root->items[0]->items;
 	}
@@ -120,13 +120,14 @@ function add_ids_to_content( $content ) {
 		return $b->offset - $a->offset;
 	} );
 
-	$format = '<%1$s class="toc-heading" id="%2$s" tabindex="-1">%3$s%4$s</%1$s>';
+	$format = '<%1$s class="%2$s" id="%3$s" tabindex="-1">%4$s %5$s</%1$s>';
 
 	foreach ( $items as $item ) {
-		$id = $item->id;
 		$tag = 'h' . $item->level;
+		$class = trim( $item->class . ' toc-heading' );
+		$id = $item->id;
 
-		$anchor = sprintf( ' <a href="#%1$s" class="anchor">#</a>', $id );
+		$anchor = sprintf( '<a href="#%1$s" class="anchor">#</a>', $id );
 
 		/**
 		 * Filter the anchor HTML added to each heading.
@@ -137,7 +138,14 @@ function add_ids_to_content( $content ) {
 		 */
 		$anchor = apply_filters( 'hm-toc.contents.anchor_html', $anchor, $item, $content );
 
-		$replacement = sprintf( $format, $tag, $id, $item->title, $anchor );
+		$replacement = sprintf(
+			$format,
+			$tag,
+			esc_attr( $class ),
+			esc_attr( $id ),
+			wp_kses_post( $item->title ),
+			$anchor
+		);
 
 		/**
 		 * Filter the HTML replacing the heading.
@@ -165,7 +173,7 @@ function add_ids_to_content( $content ) {
  *                    and `offset` keys).
  */
 function get_header_tags( $content ) {
-	preg_match_all( '/<h([1-4])>(.*)<\/h([1-4])>/', $content, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE );
+	preg_match_all( '/<h([1-4])[^>]*>(.*)<\/h([1-4])>/', $content, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE );
 
 	if ( empty( $matches ) ) {
 		return [];
@@ -179,6 +187,7 @@ function get_header_tags( $content ) {
 			'html'   => $raw_item[0][0],
 			'level'  => (int) $raw_item[1][0],
 			'title'  => $raw_item[2][0],
+			'class'  => '',
 			'offset' => $raw_item[0][1],
 		];
 
@@ -192,6 +201,11 @@ function get_header_tags( $content ) {
 		$ids[ $id ] = true;
 
 		$item->id = $id;
+
+		if ( preg_match( '/class="([^"]*)"/', $item->html, $class_matches ) ) {
+			$item->class = $class_matches[0][1];
+		}
+
 		$items[] = $item;
 	}
 
