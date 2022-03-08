@@ -1,4 +1,10 @@
 <?php
+/**
+ * Add anchors to hadings in post content to generate table of contents.
+ *
+ * @package hm-toc
+ * @since   0.1
+ */
 
 namespace HM\TOC;
 
@@ -20,7 +26,7 @@ function register_api_field() {
 		'get_callback' => function ( $data ) {
 			$post = get_post( $data['id'] );
 			return get_header_hierarchy( $post );
-		}
+		},
 	] );
 }
 
@@ -39,7 +45,6 @@ function get_header_hierarchy( WP_Post $post ) {
 	$roll_up = function ( $level ) use ( &$levels ) {
 		$cur_level = 4;
 		while ( $cur_level > $level ) {
-			// var_dump( $cur_level );
 			if ( empty( $levels[ $cur_level ] ) ) {
 				$cur_level--;
 				continue;
@@ -47,7 +52,6 @@ function get_header_hierarchy( WP_Post $post ) {
 
 			$last = end( $levels[ $cur_level - 1 ] );
 			if ( empty( $last ) ) {
-				// var_dump( $levels );
 				$last = (object) [
 					'title' => '',
 					'href'  => null,
@@ -79,7 +83,7 @@ function get_header_hierarchy( WP_Post $post ) {
 	$last_level = 0;
 	foreach ( $items as $item ) {
 		$prepared = (object) [
-			'title' => strip_tags( $item->title ),
+			'title' => wp_strip_all_tags( $item->title ),
 			'href'  => '#' . $item->id,
 			'items' => [],
 		];
@@ -136,7 +140,7 @@ function add_ids_to_content( $content ) {
 		 * @param stdClass $item Header Item.
 		 * @param string $content HTML content containing the header.
 		 */
-		$anchor = apply_filters( 'hm-toc.contents.anchor_html', $anchor, $item, $content );
+		$anchor = apply_filters( 'hm_toc.contents.anchor_html', $anchor, $item, $content );
 
 		$replacement = sprintf(
 			$format,
@@ -155,7 +159,7 @@ function add_ids_to_content( $content ) {
 		 * @param string $content HTML content containing the header.
 		 * @param string $anchor HTML for jump anchor.
 		 */
-		$replacement = apply_filters( 'hm-toc.contents.replacement_html', $replacement, $item, $content, $anchor );
+		$replacement = apply_filters( 'hm_toc.contents.replacement_html', $replacement, $item, $content, $anchor );
 
 		$content = substr_replace( $content, $replacement, $item->offset, strlen( $item->html ) );
 	}

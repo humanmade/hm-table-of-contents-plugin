@@ -1,4 +1,10 @@
 <?php
+/**
+ * Template tags to render table of contents.
+ *
+ * @package hm-toc
+ * @since   0.1
+ */
 
 namespace HM\TOC\Template_Tags;
 
@@ -35,9 +41,9 @@ function render_items( array $items, int $max_level, int $level ) : string {
 	$start_el_attrs = [
 		'class' => ( $level > 1 ) ? 'hm-toc-submenu' : 'hm-toc',
 	];
-	$start_el_attrs = apply_filters( 'hm-toc.render.start_el_attrs', $start_el_attrs, $level );
+	$start_el_attrs = apply_filters( 'hm_toc.render.start_el_attrs', $start_el_attrs, $level );
 
-	printf( '<ul %4>', html_attrubutes( $start_el_attrs ) );
+	printf( '<ul %4>', html_attrubutes( $start_el_attrs ) ); // phpcs:ignore HM.Security.EscapeOutput.OutputNotEscaped
 
 	foreach ( $items as $item ) {
 		$item_attrs = [
@@ -50,14 +56,14 @@ function render_items( array $items, int $max_level, int $level ) : string {
 
 		printf(
 			'<li %1$s><a %2$s>%3$s</a>%4$s</li>',
-			html_attrubutes( apply_filters( 'hm-toc.render.item_attrs', $item_attrs ) ),
-			html_attrubutes( apply_filters( 'hm-toc.render.link_attrs', $link_attrs ) ),
+			html_attrubutes( apply_filters( 'hm_toc.render.item_attrs', $item_attrs ) ),
+			html_attrubutes( apply_filters( 'hm_toc.render.link_attrs', $link_attrs ) ),
 			esc_html( $item->title ),
-			! empty( $item->items ) && $level < $max_level ? render_items( $item->items, $max_level, $level++ ) : ''
+			! empty( $item->items ) && $level < $max_level ? render_items( $item->items, $max_level, $level++ ) : '' // phpcs:ignore HM.Security.EscapeOutput.OutputNotEscaped
 		);
 	}
 
-	print( '</ul>' );
+	print( '</ul>' ); // phpcs:ignore HM.Security.EscapeOutput.OutputNotEscaped
 
 	return ob_get_clean();
 }
@@ -65,10 +71,10 @@ function render_items( array $items, int $max_level, int $level ) : string {
 /**
  * Helper function to convert associative array to HTML attributes.
  *
- * @param array $attributes
- * @return void
+ * @param array $attributes Associative array of strings to be turned into HTML attributes string.
+ * @return string
  */
-function html_attrubutes( array $attributes ) {
+function html_attrubutes( array $attributes ) : string {
 	$attrs = array_map(
 		function ( $value, $key ) {
 			return sprintf( '%s="%s"', $key, esc_attr( $value ) );
