@@ -1,6 +1,6 @@
 <?php
 /**
- * Add anchors to hadings in post content to generate table of contents.
+ * Add anchors to headings in post content to generate table of contents.
  *
  * @package hm-toc
  * @since   0.1

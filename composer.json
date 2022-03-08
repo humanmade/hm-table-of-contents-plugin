@@ -1,6 +1,6 @@
 {
 	"name"       : "humanmade/hm-toc",
-	"description": "Add anchors to hadings in post content and generate table of contents.",
+	"description": "Add anchors to headings in post content and generate table of contents.",
 	"type"       : "wordpress-plugin",
 	"license"    : "GPL-2.0+",
 	"authors"    : [
