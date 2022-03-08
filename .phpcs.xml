@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ruleset name="hm-toc">
+	<description>PHPCS rules for HM TOC Plugin</description>
+
+	<file>.</file>
+
+	<arg name="colors"/>
+	<arg value="s"/>
+	<arg name="extensions" value="php" />
+	<arg name="basepath" value="." />
+
+	<!-- Use HM Coding Standards -->
+	<rule ref="vendor/humanmade/coding-standards" />
+
+</ruleset>
