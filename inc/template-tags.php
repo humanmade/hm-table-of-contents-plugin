@@ -56,8 +56,8 @@ function render_items( array $items, int $max_level, int $level ) : string {
 
 		printf(
 			'<li %1$s><a %2$s>%3$s</a>%4$s</li>',
-			html_attrubutes( apply_filters( 'hm_toc.render.item_attrs', $item_attrs ) ),
-			html_attrubutes( apply_filters( 'hm_toc.render.link_attrs', $link_attrs ) ),
+			html_attrubutes( apply_filters( 'hm_toc.render.item_attrs', $item_attrs, $item ) ),
+			html_attrubutes( apply_filters( 'hm_toc.render.link_attrs', $link_attrs, $item ) ),
 			esc_html( $item->title ),
 			! empty( $item->items ) && $level < $max_level ? render_items( $item->items, $max_level, $level++ ) : '' // phpcs:ignore HM.Security.EscapeOutput.OutputNotEscaped
 		);
