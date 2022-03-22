@@ -43,7 +43,7 @@ function render_items( array $items, int $max_level, int $level ) : string {
 	];
 	$start_el_attrs = apply_filters( 'hm_toc.render.start_el_attrs', $start_el_attrs, $level );
 
-	printf( '<ul %4>', html_attrubutes( $start_el_attrs ) ); // phpcs:ignore HM.Security.EscapeOutput.OutputNotEscaped
+	printf( '<ul %s>', html_attrubutes( $start_el_attrs ) ); // phpcs:ignore HM.Security.EscapeOutput.OutputNotEscaped
 
 	foreach ( $items as $item ) {
 		$item_attrs = [
