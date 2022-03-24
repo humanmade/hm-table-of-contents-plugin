@@ -173,7 +173,7 @@ function add_ids_to_content( $content ) {
  * Matches H1, H2, H3, and H4 tags from the provided HTML content.
  *
  * @param string $content HTML content to parse.
- * @return stdClass[] List of items (objects with `html`, `level`, `title`,
+ * @return stdClass[] List of items (objects with `html`, `level`, `title`, `class`,
  *                    and `offset` keys).
  */
 function get_header_tags( $content ) {
