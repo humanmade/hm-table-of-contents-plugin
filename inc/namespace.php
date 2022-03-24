@@ -207,7 +207,7 @@ function get_header_tags( $content ) {
 		$item->id = $id;
 
 		if ( preg_match( '/class="([^"]*)"/', $item->html, $class_matches ) ) {
-			$item->class = $class_matches[0][1];
+			$item->class = $class_matches[1];
 		}
 
 		$items[] = $item;
