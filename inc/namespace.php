@@ -111,7 +111,7 @@ function get_header_hierarchy( WP_Post $post ) {
  */
 function add_ids_to_content( $content ) {
 	$items = get_header_tags( $content );
-	if ( empty( $items ) ) {
+	if ( empty( $items ) || 'pb-page' !== get_post_type() ) {
 		return $content;
 	}
 
@@ -127,7 +127,7 @@ function add_ids_to_content( $content ) {
 		$class = trim( $item->class . ' toc-heading' );
 		$id = $item->id;
 
-		$anchor = sprintf( '<a href="#%1$s" class="anchor">#</a>', $id );
+		$anchor = sprintf( '<a href="#%1$s" class="anchor"></a>', $id );
 
 		/**
 		 * Filter the anchor HTML added to each heading.
