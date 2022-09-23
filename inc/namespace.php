@@ -195,14 +195,23 @@ function get_header_tags( $content ) {
 			'offset' => $raw_item[0][1],
 		];
 
-		// Build ID, and deduplicate.
-		$id = $orig_id = sanitize_title_with_dashes( $item->title );
-		$counter = 0;
-		while ( isset( $ids[ $id ] ) && $counter < 100 ) {
-			$counter++;
-			$id = sprintf( '%s-%d', $orig_id, $counter );
+		$id = '';
+
+		// If the item already has an ID, use that.
+		if ( preg_match( '/id="([^"]*)"/', $item->html, $id_matches ) ) {
+			$id = $id_matches[1];
 		}
-		$ids[ $id ] = true;
+
+		if ( empty( $id ) ) {
+			// Build ID, and deduplicate.
+			$id = $orig_id = sanitize_title_with_dashes( $item->title );
+			$counter = 0;
+			while ( isset( $ids[ $id ] ) && $counter < 100 ) {
+				$counter ++;
+				$id = sprintf( '%s-%d', $orig_id, $counter );
+			}
+			$ids[ $id ] = true;
+		}
 
 		$item->id = $id;
 
