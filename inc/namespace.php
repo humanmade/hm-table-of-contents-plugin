@@ -202,6 +202,11 @@ function get_header_tags( $content ) {
 			$id = $id_matches[1];
 		}
 
+		// If an editor has specified a menu title, use that.
+		if ( preg_match( '/data-menu-title="([^"]*)"/', $item->html, $menu_text_matches ) ) {
+			$item->title = $menu_text_matches[1] ?: $item->title;
+		}
+
 		if ( empty( $id ) ) {
 			// Build ID, and deduplicate.
 			$id = $orig_id = sanitize_title_with_dashes( $item->title );
