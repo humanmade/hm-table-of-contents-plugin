@@ -1,7 +1,7 @@
 {
 	"name"       : "humanmade/hm-toc",
 	"description": "WordPress plugin that adds anchors to headings in post content and generates table of contents from headings.",
-	"version"    : "1.0.1",
+	"version"    : "1.0.2",
 	"type"       : "wordpress-plugin",
 	"license"    : "GPL-2.0+",
 	"authors"    : [
