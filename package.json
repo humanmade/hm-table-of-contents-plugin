@@ -1,0 +1,15 @@
+{
+  "name": "hm-table-of-contents-plugin",
+  "version": "1.0.0",
+  "description": "Add anchors to headings in post content and generate table of contents.",
+  "main": "index.js",
+  "scripts": {
+	"build": "wp-scripts build --webpack-src-dir=block/src --output-path=block/build",
+	"start": "wp-scripts start --webpack-src-dir=block/src --output-path=block/build"
+  },
+  "author": "Human Made",
+  "license": "GPL-2.0+",
+  "devDependencies": {
+    "@wordpress/scripts": "^29.0.0"
+  }
+}

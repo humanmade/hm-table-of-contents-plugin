@@ -1,0 +1,23 @@
+{
+	"apiVersion": 2,
+	"name": "hm/table-of-contents",
+	"title": "Table of Contents",
+	"category": "widgets",
+	"icon": "list-view",
+	"description": "A block that generates a table of contents for the post.",
+	"supports": {
+		"html": false,
+		"spacing": {
+			"margin": true
+		}
+	},
+	"attributes": {
+		"postId": {
+			"type": "number"
+		}
+	},
+	"textdomain": "toc-block",
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+	"context": [ "postId" ]
+  }

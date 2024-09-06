@@ -14,8 +14,50 @@ use WP_Post;
  * Register actions and filters.
  */
 function bootstrap() {
+	add_action( 'init', __NAMESPACE__ . '\\register_block' );
 	add_action( 'rest_api_init', __NAMESPACE__ . '\\register_api_field' );
 	add_filter( 'the_content', __NAMESPACE__ . '\\add_ids_to_content', -10 );
+}
+
+/**
+ * Register block
+ *
+ * @return void
+ */
+function register_block(): void {
+	$block_build_dir = dirname( __FILE__, 2 ) . '/block/build';
+	if ( is_readable( $block_build_dir . '/block.json' ) ) {
+		register_block_type( $block_build_dir );
+	}
+}
+
+/**
+ * Render heading list
+ *
+ * @param array $hierarchy Heading hierarchy.
+ * @return void
+ */
+function the_heading_list( $hierarchy ) {
+	echo '<ul>';
+	foreach ( $hierarchy as $heading ) {
+		echo '<li>';
+
+		if ( ! empty( $heading->href ) ) {
+			printf( '<a href="%s">', $heading->href );
+		}
+
+		echo $heading->title;
+
+		if ( $heading->href ) {
+			echo '</a>';
+		}
+
+		if ( $heading->items ) {
+			the_heading_list( $heading->items );
+		}
+		echo '</li>';
+	}
+	echo '</ul>';
 }
 
 /**
