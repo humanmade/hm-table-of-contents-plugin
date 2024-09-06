@@ -10,8 +10,9 @@ WordPress plugin with the following features:
 
 ### I don't want to automatically add anchor links to headings. 
 
-You can remove the filter that adds these with the following snippet: 
+You can remove the filter that adds these with the following snippet. Doing it like this means that the plugin will still ensures headings all have IDs.
 
 ```php
-remove_filter( 'the_content', 'HM\\TOC\\add_ids_to_content', -10 );
+// Don't append an anchor link to each heading.
+	add_filter( 'hm_toc.contents.anchor_html', '__return_empty_string' );
 ```
