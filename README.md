@@ -1,5 +1,7 @@
 # HM Table of Contents
 
+WordPress plugin with the following features:
+
 * Generate table of contents that lists all headings (Ordered hierachically) in post content. 
 * Automatically add anchors links after all headings in post content.
 * Block to add these to pages and template.
