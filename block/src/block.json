@@ -1,5 +1,7 @@
 {
-	"apiVersion": 2,
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"version": "1.0.0",
 	"name": "hm/table-of-contents",
 	"title": "Table of Contents",
 	"category": "widgets",
@@ -14,10 +16,15 @@
 	"attributes": {
 		"postId": {
 			"type": "number"
+		},
+		"maxLevel": {
+			"type": "number",
+			"default": 3
 		}
 	},
 	"textdomain": "toc-block",
 	"editorScript": "file:./index.js",
+	"viewScript": "file:./view.js",
 	"render": "file:./render.php",
-	"context": [ "postId" ]
+	"usesContext": [ "postId" ]
   }

@@ -2,7 +2,9 @@
 
 namespace HM\TOC;
 
-$post = isset( $attributes['post_id'] ) ? get_post( $attributes['post_id'] ) : get_post( get_the_ID() );
+$post_id = isset( $attributes['postId'] ) ? $attributes['postId'] : ( $block->context['postId'] ?? null );
+
+$post = get_post( $post_id );
 
 if ( ! $post ) {
 	return;
@@ -17,6 +19,6 @@ printf(
 );
 
 printf( '<h2>%s</h2>', esc_html__( 'Table of contents', 'hm-table-of-contents' ) );
-the_heading_list( $hierarchy );
+the_heading_list( $hierarchy, $attributes['maxLevel'] ?? 3 );
 
 echo '</div>';

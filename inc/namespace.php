@@ -35,10 +35,13 @@ function register_block(): void {
  * Render heading list
  *
  * @param array $hierarchy Heading hierarchy.
+ * @param int $max_level The maximum heading level to output.
+ * @param int $current_level The current level being output.
  * @return void
  */
-function the_heading_list( $hierarchy ) {
+function the_heading_list( $hierarchy, $max_level = 3, $current_level = 1 ) {
 	echo '<ul>';
+
 	foreach ( $hierarchy as $heading ) {
 		echo '<li>';
 
@@ -52,11 +55,13 @@ function the_heading_list( $hierarchy ) {
 			echo '</a>';
 		}
 
-		if ( $heading->items ) {
-			the_heading_list( $heading->items );
+		if ( $heading->items && $max_level > $current_level ) {
+			the_heading_list( $heading->items, $max_level, $current_level + 1 );
 		}
+
 		echo '</li>';
 	}
+
 	echo '</ul>';
 }
 
@@ -246,7 +251,12 @@ function get_header_tags( $content ) {
 
 		// If an editor has specified a menu title, use that.
 		if ( preg_match( '/data-menu-title="([^"]*)"/', $item->html, $menu_text_matches ) ) {
-			$item->title = $menu_text_matches[1] ?: $item->title;
+			$item->title = trim( $menu_text_matches[1] ?: $item->title );
+		}
+
+		// Ignore empty headings.
+		if ( empty( $item->title ) ) {
+			continue;
 		}
 
 		if ( empty( $id ) ) {

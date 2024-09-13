@@ -43,7 +43,7 @@ function render_items( array $items, int $max_level, int $level ) : string {
 	];
 	$start_el_attrs = apply_filters( 'hm_toc.render.start_el_attrs', $start_el_attrs, $level );
 
-	printf( '<ul %s>', html_attrubutes( $start_el_attrs ) ); // phpcs:ignore HM.Security.EscapeOutput.OutputNotEscaped
+	printf( '<ul %s>', html_attributes( $start_el_attrs ) ); // phpcs:ignore HM.Security.EscapeOutput.OutputNotEscaped
 
 	foreach ( $items as $item ) {
 		$item_attrs = [
@@ -56,8 +56,8 @@ function render_items( array $items, int $max_level, int $level ) : string {
 
 		printf(
 			'<li %1$s><a %2$s>%3$s</a>%4$s</li>',
-			html_attrubutes( apply_filters( 'hm_toc.render.item_attrs', $item_attrs, $item ) ),
-			html_attrubutes( apply_filters( 'hm_toc.render.link_attrs', $link_attrs, $item ) ),
+			html_attributes( apply_filters( 'hm_toc.render.item_attrs', $item_attrs, $item ) ),
+			html_attributes( apply_filters( 'hm_toc.render.link_attrs', $link_attrs, $item ) ),
 			esc_html( $item->title ),
 			! empty( $item->items ) && $level < $max_level ? render_items( $item->items, $max_level, $level++ ) : '' // phpcs:ignore HM.Security.EscapeOutput.OutputNotEscaped
 		);
@@ -74,7 +74,7 @@ function render_items( array $items, int $max_level, int $level ) : string {
  * @param array $attributes Associative array of strings to be turned into HTML attributes string.
  * @return string
  */
-function html_attrubutes( array $attributes ) : string {
+function html_attributes( array $attributes ) : string {
 	$attrs = array_map(
 		function ( $value, $key ) {
 			return sprintf( '%s="%s"', $key, esc_attr( $value ) );
