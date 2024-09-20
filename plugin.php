@@ -4,7 +4,7 @@
  * Description: Add anchors to headings in post content and generate table of contents.
  * Author: Human Made Limited
  * Author URI: https://humanmade.com/
- * Version: 1.1.0
+ * Version: 1.0.3
  */
 
 namespace HM\TOC;
