@@ -15,5 +15,5 @@ You can remove the filter that adds these with the following snippet. Doing it l
 
 ```php
 // Don't append an anchor link to each heading.
-	add_filter( 'hm_toc.contents.anchor_html', '__return_empty_string' );
+add_filter( 'hm_toc.contents.anchor_html', '__return_empty_string' );
 ```
