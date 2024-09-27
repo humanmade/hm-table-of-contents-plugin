@@ -1,9 +1,9 @@
 document.querySelectorAll('.hm-toc, .hm-table-of-contents').forEach((toc) => {
 	const links = toc.querySelectorAll('a');
-	const ids = [...links].map(link => new URL(link.href).hash);
+	const ids = [...links].map(link => new URL(link.href).hash.substring(1));
 
 	// Cycle backwards through top offsets to get nearest segment.
-	const headings = [...document.querySelectorAll( ids.join( ',' ) )].reverse();
+	const headings = [ ...ids.map( id => document.getElementById( id ) ) ].reverse();
 	const thresholds = headings.map(heading => heading.getBoundingClientRect().top);
 	let currentThreshold = Infinity;
 
