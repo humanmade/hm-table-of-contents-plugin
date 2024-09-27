@@ -171,7 +171,7 @@ function add_ids_to_content( $content ) {
 		return $b->offset - $a->offset;
 	} );
 
-	$format = '<%1$s class="%2$s" id="%3$s" tabindex="-1">%4$s %5$s</%1$s>';
+	$format = '<%1$s %2$s tabindex="-1">%3$s %4$s</%1$s>';
 
 	foreach ( $items as $item ) {
 		$tag = 'h' . $item->level;
@@ -189,11 +189,18 @@ function add_ids_to_content( $content ) {
 		 */
 		$anchor = apply_filters( 'hm_toc.contents.anchor_html', $anchor, $item, $content );
 
+		// Build attributes array.
+		$attributes = [];
+		foreach ( [ 'id', 'class', 'style' ] as $attribute ) {
+			if ( ! empty( $item->$attribute ) ) {
+				$attributes[] = sprintf( '%s="%s"', esc_attr( $attribute ), esc_attr( $item->$attribute ) );
+			}
+		}
+
 		$replacement = sprintf(
 			$format,
 			$tag,
-			esc_attr( $class ),
-			esc_attr( $id ),
+			implode( ' ', $attributes ),
 			wp_kses_post( $item->title ),
 			$anchor
 		);
@@ -240,6 +247,7 @@ function get_header_tags( $content ) {
 			'title'  => $raw_item[2][0],
 			'class'  => '',
 			'offset' => $raw_item[0][1],
+			'style'  => '',
 		];
 
 		$id = '';
@@ -274,6 +282,10 @@ function get_header_tags( $content ) {
 
 		if ( preg_match( '/class="([^"]*)"/', $item->html, $class_matches ) ) {
 			$item->class = $class_matches[1];
+		}
+
+		if ( preg_match( '/style="([^"]*)"/', $item->html, $style_matches ) ) {
+			$item->style = $style_matches[1];
 		}
 
 		$items[] = $item;
