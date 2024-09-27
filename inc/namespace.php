@@ -175,10 +175,9 @@ function add_ids_to_content( $content ) {
 
 	foreach ( $items as $item ) {
 		$tag = 'h' . $item->level;
-		$class = trim( $item->class . ' toc-heading' );
-		$id = $item->id;
+		$item->class = trim( $item->class . ' toc-heading' );
 
-		$anchor = sprintf( '<a href="#%1$s" class="anchor">#</a>', $id );
+		$anchor = sprintf( '<a href="#%1$s" class="anchor">#</a>', $item->id );
 
 		/**
 		 * Filter the anchor HTML added to each heading.
