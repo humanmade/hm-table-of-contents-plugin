@@ -13,7 +13,7 @@ registerBlockType( metadata.name, {
 				<InspectorControls>
 					<PanelBody>
 						<SelectControl
-							label={ __( 'Maximum Header Depth', 'hm-table-of-contents' ) }
+							label={ __( 'Maximum Header Depth', 'hm-toc' ) }
 							value={ attributes.maxLevel || 3 }
 							options={ [
 								{ label: '1', value: 1 },

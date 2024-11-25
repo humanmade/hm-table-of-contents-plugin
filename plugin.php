@@ -4,6 +4,7 @@
  * Description: Add anchors to headings in post content and generate table of contents.
  * Author: Human Made Limited
  * Author URI: https://humanmade.com/
+ * Text Domain: hm-toc
  * Version: 1.1.5
  */
 
