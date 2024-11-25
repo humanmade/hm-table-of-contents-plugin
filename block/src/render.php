@@ -40,6 +40,6 @@ printf(
 	$wrapper_attributes, // @codingStandardsIgnoreLine WordPress.Security.EscapeOutput.OutputNotEscaped
 );
 
-printf( '<h2>%s</h2>', esc_html__( 'Table of contents', 'hm-table-of-contents' ) );
+printf( '<h2>%s</h2>', esc_html__( 'Table of contents', 'hm-toc' ) );
 the_heading_list( $hierarchy, $max_level, $current_level );
 echo '</div>';
