@@ -5,7 +5,7 @@
  * Author: Human Made Limited
  * Author URI: https://humanmade.com/
  * Text Domain: hm-toc
- * Version: 1.1.5
+ * Version: 1.1.7
  */
 
 namespace HM\TOC;
