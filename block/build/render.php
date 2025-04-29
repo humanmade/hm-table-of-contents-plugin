@@ -11,9 +11,10 @@ if ( ! $post ) {
 	return;
 }
 
+$current_level = null;
 $max_level = $attributes['maxLevel'] ?? 3;
 
-// Work out the current level by finding the heighest level heading within the content.
+// Work out the current level by finding the highest level heading within the content.
 // Typically this is H2. But technically it can be anything.
 foreach ( array_slice( [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ], 0, $max_level ) as $i => $heading_tag ) {
 	$tags = new WP_HTML_Tag_Processor( $post->post_content );
